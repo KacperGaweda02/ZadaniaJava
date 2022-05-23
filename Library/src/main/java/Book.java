@@ -1,12 +1,12 @@
 public class Book {
-    String name;
+    String title;
     String author;
     String genre;
     String descrip;
-    public Book(String nameOfBook, String authorOfBook, String genreOfBook, String description ) {
-        author = authorOfBook;
-        name = nameOfBook;
-        genre = genreOfBook;
-        descrip = description;
+    public Book(String title, String author, String genre, String descrip) {
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.descrip = descrip;
     }
 }

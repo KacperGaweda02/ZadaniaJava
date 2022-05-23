@@ -1,15 +1,45 @@
 import java.util.Scanner;
 public class BookController {
-    // to jest kontroler
     public static Scanner scanner = new Scanner(System.in);
     public static String input;
     public static String bookToRemove;
     public static String bookToSee;
-    public static String newTitle;
-    public static String newAuthor;
-    public static String newGenre;
-    public static String newDescrip;
     public static String blankValue;
+    static boolean isWorking = true;
+    public static void doSomethingWithIt(String input) {
+        while (isWorking) {
+            switch (input) {
+                case "1":
+                    input = "0";
+                    BookService.showTitles();
+                    break;
+                case "2":
+                    input = "0";
+                    BookView.addBook();
+                    break;
+                case "3":
+                    input = "0";
+                    BookService.bookRemoval();
+                    break;
+                case "4":
+                    input = "0";
+                    BookService.viewInfo();
+                    break;
+                case "5":
+                    input = "0";
+                    BookService.saveInFile();
+                    break;
+                case "6":
+                    input = "0";
+                    isWorking = false;
+                    break;
+                default:
+                    input = "0";
+                    BookView.getMad();
+                    break;
+            }
+        }
+    }
     public static void letsGetStarted() {
         BookView.greeting();
         BookView.showMenu();
@@ -17,28 +47,24 @@ public class BookController {
     }
     public static void askAndGive() {
         input = scanner.next();
-        BookService.doSomethingWithIt(input);
-    }
-    public static void addBook() {
-        System.out.println("What's the title?");
-        blankValue = scanner.nextLine();
-        newTitle = scanner.nextLine();
-        System.out.println("Who is the author?");
-        newAuthor = scanner.nextLine();
-        System.out.println("What's the genre?");
-        newGenre = scanner.nextLine();
-        System.out.println("What's the description?");
-        newDescrip = scanner.nextLine();
-        BookService.createNewBook(newTitle, newAuthor, newGenre, newDescrip);
+        BookController.doSomethingWithIt(input);
     }
     public static void getBookToRemove() {
         blankValue = scanner.nextLine();
         bookToRemove = scanner.nextLine();
-        BookService.removeBook(bookToRemove);
+        try {
+            BookService.removeBook(bookToRemove);
+        } catch (BookNotFoundException e) {
+            BookView.noSuchABook();
+        }
+        BookView.showMenu();
+        BookController.askAndGive();
     }
     public static void getSpecBook() {
         blankValue = scanner.nextLine();
         bookToSee = scanner.nextLine();
         BookService.showInfo(bookToSee);
+        BookView.showMenu();
+        BookController.askAndGive();
     }
 }

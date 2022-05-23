@@ -1,6 +1,13 @@
+import java.util.Scanner;
+
 public class BookView {
-    // to jest widok
     static Book output;
+    public static String newTitle;
+    public static String newAuthor;
+    public static String newGenre;
+    public static String newDescrip;
+    public static String blankValue;
+    public static Scanner scanner = new Scanner(System.in);
     public static void greeting() {
         System.out.println("Welcome in our library, choose a thing you'd like to do (write a number):");
     }
@@ -14,7 +21,7 @@ public class BookView {
     }
     public static void printTitles(int i) {
         output = BookRepository.listOfBooks.get(i);
-        System.out.println(output.name);
+        System.out.println(output.title);
     }
     public static void askAboutBookRemoval() {
         System.out.println("Which book would you like to remove from library (write a name)?");
@@ -30,6 +37,20 @@ public class BookView {
     }
     public static void getMad() {
         System.out.println("Use proper number:");
+        showMenu();
+        BookController.askAndGive();
+    }
+    public static void addBook() {
+        System.out.println("What's the title?");
+        blankValue = scanner.nextLine();
+        newTitle = scanner.nextLine();
+        System.out.println("Who is the author?");
+        newAuthor = scanner.nextLine();
+        System.out.println("What's the genre?");
+        newGenre = scanner.nextLine();
+        System.out.println("What's the description?");
+        newDescrip = scanner.nextLine();
+        BookService.createNewBook(newTitle, newAuthor, newGenre, newDescrip);
         showMenu();
         BookController.askAndGive();
     }
